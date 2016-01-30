@@ -53,7 +53,7 @@ if not ret:
 print "Press 'h' for help"
 print "Press 'q' to quit"
 
-ECONOMY_MODE=True
+ECONOMY_MODE=False
 HELP_MODE=False
 UDP_MESSAGE=""
 UDP_COUNTER=0
@@ -484,7 +484,7 @@ while(True):
         #thresh = cv2.erode(thresh, None)
         # # # #
         thresh2 = thresh.copy()
-        contours,hierarchy = cv2.findContours(thresh,cv2.RETR_CCOMP,cv2.CHAIN_APPROX_SIMPLE)
+        _,contours,hierarchy = cv2.findContours(thresh,cv2.RETR_CCOMP,cv2.CHAIN_APPROX_SIMPLE)
         best_cnt = None
         bestCntHullArea = 0
         cntCandidates = []
@@ -497,7 +497,7 @@ while(True):
             hull = cv2.convexHull(cnt)
             hullArea = cv2.contourArea(hull)
             minRect = cv2.minAreaRect(cnt)
-            minRect = np.int0(cv2.cv.BoxPoints(minRect))
+            minRect = np.int0(cv2.boxPoints(minRect))
             bboxCnt = cv2.convexHull(minRect)
             bboxArea = cv2.contourArea(bboxCnt)
             cntArcLen = cv2.arcLength(cnt,True)
@@ -521,7 +521,7 @@ while(True):
             cv2.rectangle(imArray[5],(x,y),(x+w,y+h),(0,255,0),1)
             cv2.rectangle(imArray[6],(x,y),(x+w,y+h),(0,255,0),1)
             minRect = cv2.minAreaRect(best_cnt)
-            minRect = np.int0(cv2.cv.BoxPoints(minRect))
+            minRect = np.int0(cv2.boxPoints(minRect))
             #print "minRect:", minRect
             #minRectWline = 
             #print "minRectW:", 
